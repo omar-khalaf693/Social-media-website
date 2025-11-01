@@ -8,10 +8,12 @@ import { Toaster } from "react-hot-toast";
 import { Profile } from "./pages/Profile/Profile.jsx";
 import { useSelector } from "react-redux";
 import { NotFound } from "./pages/NotFound/NotFound.jsx";
+import { CreatePost } from "./pages/CreatePost/CreatePost.jsx";
+import { SearchResults } from "./pages/SearchResults/SearchResults.jsx";
 
 function App() {
   const {isLoggedin} = useSelector((state) => state.user);
-
+  
   return (
     <Container fluid className="app-container ">
       <NavBar />
@@ -20,6 +22,8 @@ function App() {
         <Route path="/" Component={Home} />
         { !isLoggedin  && <Route path="/login" Component={Login} />} 
         <Route path="/profile/:id" Component={Profile}/>
+        {isLoggedin && <Route path="/create-post" Component={CreatePost}/>}
+        <Route path="/search/:search" Component={SearchResults}/>
         <Route path = "*" Component={NotFound} />
       </Routes>
     </Container>

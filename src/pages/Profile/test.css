@@ -1,0 +1,10 @@
+Button:hover{
+    transform: translateY(4px);
+    transition: 0.5s;
+}
+.sp{
+    background-color: #eee;
+    border: 2px , solid , black;
+    border-radius: 5px;
+    padding: 5px;
+}
