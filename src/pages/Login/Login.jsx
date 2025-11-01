@@ -32,7 +32,7 @@ export const Login = () => {
   }
 
   return (
-    <Container className="login-page">
+    <Container fluid style={{height: "100vh"}}  className="login-page">
       <h1>Login Form</h1>
 
       <Form onSubmit={HandleLogin}>

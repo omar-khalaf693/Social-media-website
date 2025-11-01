@@ -5,6 +5,7 @@ const userSlice = createSlice({
     initialState: {
         user : JSON.parse(localStorage.getItem("user")),
         isLoggedin : JSON.parse(localStorage.getItem("user")) != null,
+        isDarkMode : JSON.parse(localStorage.getItem("isDarkMode")) || false,
 
     },
     reducers: {
@@ -18,8 +19,12 @@ const userSlice = createSlice({
             state.isLoggedin = false;
             localStorage.removeItem("user")
         } ,
+        setIsDarkMode : (state , action) => {
+            state.isDarkMode = action.payload;
+            localStorage.setItem("isDarkMode" , JSON.stringify(state.isDarkMode))
+        }
     }    
 })
-export const { clearUser, setUser } = userSlice.actions;
+export const { clearUser, setUser ,setIsDarkMode} = userSlice.actions;
 
 export default userSlice.reducer;

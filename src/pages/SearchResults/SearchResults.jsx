@@ -28,7 +28,7 @@ export const SearchResults = () => {
         search_for_posts();    
     },[search])
   return (
-    <Container>
+    <Container fluid style={{height: "100vh"}}>
         <h1>Search Results for "{search}"</h1>
         <div className='users-results my-4 d-flex gap-3 align-items-center'>
             <h4>Users:</h4>

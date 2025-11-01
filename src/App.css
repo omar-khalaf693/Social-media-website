@@ -1,0 +1,16 @@
+.dark{
+     
+  background-color: #121212;
+  color: #f8f9fa;
+  transition: all 0.3s ease;
+
+}
+.sp{
+    color: black;
+}
+.light{
+  background-color: #ffffff;
+  color: #212529;
+  transition: all 0.3s ease;
+
+}

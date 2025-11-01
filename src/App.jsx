@@ -13,9 +13,9 @@ import { SearchResults } from "./pages/SearchResults/SearchResults.jsx";
 
 function App() {
   const {isLoggedin} = useSelector((state) => state.user);
-  
+  const {isDarkMode} = useSelector((state) => state.user);
   return (
-    <Container fluid className="app-container ">
+    <Container fluid className ={isDarkMode ? "dark" : "light" } >
       <NavBar />
       <Toaster />
       <Routes>

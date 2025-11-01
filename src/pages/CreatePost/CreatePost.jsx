@@ -30,7 +30,7 @@ export const CreatePost = () => {
     }
   }
   return (
-    <Container>
+    <Container fluid style={{height: "100vh"}}>
       <h1>Create Post Form</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
