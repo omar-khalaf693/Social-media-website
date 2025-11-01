@@ -5,15 +5,22 @@ import { Login } from "./pages/Login/Login.jsx";
 import { Home } from "./pages/Home/Home.jsx";
 import { Container } from "react-bootstrap";
 import { Toaster } from "react-hot-toast";
+import { Profile } from "./pages/Profile/Profile.jsx";
+import { useSelector } from "react-redux";
+import { NotFound } from "./pages/NotFound/NotFound.jsx";
 
 function App() {
+  const {isLoggedin} = useSelector((state) => state.user);
+
   return (
     <Container fluid className="app-container ">
       <NavBar />
       <Toaster />
       <Routes>
         <Route path="/" Component={Home} />
-        <Route path="/login" Component={Login} />
+        { !isLoggedin  && <Route path="/login" Component={Login} />} 
+        <Route path="/profile/:id" Component={Profile}/>
+        <Route path = "*" Component={NotFound} />
       </Routes>
     </Container>
   );
