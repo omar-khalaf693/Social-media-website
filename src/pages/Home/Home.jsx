@@ -1,6 +1,6 @@
 import axios from "axios";
-import { use, useEffect } from "react";
-import { Button, Container } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Container, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
   DislikePost,
@@ -10,6 +10,7 @@ import {
 import { AiOutlineLike } from "react-icons/ai";
 import { SlDislike } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
+import { addComment, storeComments } from "../../store/slices/commentsSlice";
 
 export const Home = () => {
   const dispatch = useDispatch();
@@ -17,10 +18,27 @@ export const Home = () => {
   const go = useNavigate();
   const { posts } = useSelector((state) => state.post);
   const { user } = useSelector((state) => state.user);
+  const { comments } = useSelector((state) => state.comment);
+  const [comment, setComment] = useState("");
+
   async function get_posts() {
     try {
       const response = await axios.get("https://dummyjson.com/posts");
       dispatch(StorePosts(response.data.posts));
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function get_comments() {
+    try {
+      const cachedComments = JSON.parse(localStorage.getItem("comments"));
+      if (cachedComments) {
+        return;
+      }
+      const response = await axios.get("https://dummyjson.com/comments");
+      console.log(response.data.comments);
+      dispatch(storeComments(response.data.comments));
+      setComments(JSON.parse(localStorage.getItem("comments")));
     } catch (error) {
       console.log(error);
     }
@@ -31,8 +49,12 @@ export const Home = () => {
   function HandleDislike(id, userId) {
     dispatch(DislikePost({ id, userId }));
   }
+  function HandleAddComment(userId, postId, comment) {
+    dispatch(addComment({ postId, userId, comment }));
+  }
   useEffect(() => {
     get_posts();
+    get_comments();
   }, []);
   return (
     <Container>
@@ -72,6 +94,32 @@ export const Home = () => {
                 <SlDislike />
               </Button>
             </div>
+            <div className="comments-section mt-3">
+              <h3>Comments:</h3>
+              {comments
+                .filter((c) => c.postId == post.id)
+                .map((comment, index) => (
+                  <div key={index} className="comment-container d-flex gap-2">
+                    <h5>{comment.user?.username}: </h5>
+                    <p>{comment.body}</p>
+                    <h2>{comment.userId}:</h2>
+                    <p>{comment.comment}</p>
+                  </div>
+                ))}
+            </div>
+
+            <Form.Group className="mb-2">
+              <Form.Label>Add a comment</Form.Label>
+              <Form.Control
+                onChange={(ev) => setComment(ev.target.value)}
+                type="text"
+                placeholder="Enter your comment"
+              />
+            </Form.Group>
+            <Button onClick={() => HandleAddComment(user.id, post.id, comment)}>
+              add comment
+            </Button>
+
             <hr />
           </div>
         ))}
