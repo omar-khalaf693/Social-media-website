@@ -96,7 +96,7 @@ export const NavBar = () => {
                 <Button
                   onClick={HandleLogout}
                   variant="outline-danger"
-                  className="ms-2"
+                  className="ms-2 mx-3"
                 >
                   Logout
                 </Button>

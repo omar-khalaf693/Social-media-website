@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { use, useEffect } from "react";
+import { use, useEffect } from "react";
 import { Button, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -9,7 +9,6 @@ import {
 } from "../../store/slices/postSlice";
 import { AiOutlineLike } from "react-icons/ai";
 import { SlDislike } from "react-icons/sl";
-import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 export const Home = () => {

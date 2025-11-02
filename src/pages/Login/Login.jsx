@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRef } from "react";
-import { Button, Container, Form} from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/userSlice";
@@ -9,7 +9,7 @@ export const Login = () => {
   const UserNameRef = useRef();
   const PasswordRef = useRef();
   const dispatch = useDispatch();
-  const nav = useNavigate(); 
+  const nav = useNavigate();
 
   async function HandleLogin(ev) {
     ev.preventDefault();
@@ -25,14 +25,13 @@ export const Login = () => {
       toast.success(`Welcome ${response.data.username}`);
       dispatch(setUser(response.data));
       nav("/");
-
     } catch (error) {
-      toast.error(error.response.data.message || "Login Successful")
+      toast.error(error.response.data.message || "Login Successful");
     }
   }
 
   return (
-    <Container fluid style={{height: "100vh"}}  className="login-page">
+    <Container fluid style={{ height: "100vh" }} className="login-page">
       <h1>Login Form</h1>
 
       <Form onSubmit={HandleLogin}>
@@ -52,7 +51,11 @@ export const Login = () => {
             placeholder="enter your pasword"
           />
         </Form.Group>
-        <Button type="submit">Login</Button>
+        <div className="button-container d-flex justify-content-center">
+          <Button className="p-2" style={{ width: "150px" }} type="submit">
+            Login
+          </Button>
+        </div>
       </Form>
     </Container>
   );

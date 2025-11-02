@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useRef } from "react";
-import {  Button, Container, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { addPost } from "../../store/slices/postSlice";
@@ -13,24 +13,27 @@ export const CreatePost = () => {
   const dispatch = useDispatch();
   const go = useNavigate();
   async function handleSubmit(e) {
-      e.preventDefault();
-      console.log(titleRef.current)
-      const postData = {
+    e.preventDefault();
+    console.log(titleRef.current);
+    const postData = {
       title: titleRef.current.value,
       userId: user.id,
       content: contentRef.current.value,
     };
     try {
-        const response = await axios.post('https://dummyjson.com/posts/add',postData);
-        toast.success('Post created successfully with id:'+ response.data.id);
-        dispatch(addPost(response.data))
-        go(`/profile/${user.id}`)
+      const response = await axios.post(
+        "https://dummyjson.com/posts/add",
+        postData
+      );
+      toast.success("Post created successfully with id:" + response.data.id);
+      dispatch(addPost(response.data));
+      go(`/profile/${user.id}`);
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
   }
   return (
-    <Container fluid style={{height: "100vh"}}>
+    <Container fluid style={{ height: "100vh" }}>
       <h1>Create Post Form</h1>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
@@ -41,7 +44,7 @@ export const CreatePost = () => {
             placeholder="Enter post title"
           />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="my-3">
           <Form.Label>Post Content</Form.Label>
           <Form.Control
             ref={contentRef}
@@ -49,7 +52,11 @@ export const CreatePost = () => {
             placeholder="Enter post content"
           />
         </Form.Group>
-        <Button type="submit">Create Post</Button>
+        <div className="button-container d-flex justify-content-center">
+          <Button variant="success" className="p-3 " style={{ width: "150px" }} type="submit">
+            Create Post
+          </Button>
+        </div>
       </Form>
     </Container>
   );
